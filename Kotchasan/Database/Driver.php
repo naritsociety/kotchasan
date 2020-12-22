@@ -117,7 +117,6 @@ abstract class Driver extends Query
         if ($this->cache_item instanceof Item) {
             return $this->cache->save($this->cache_item, $datas);
         }
-
         return false;
     }
 
@@ -168,7 +167,6 @@ abstract class Driver extends Query
                 $result[$i] = (object) $item;
             }
         }
-
         return $result;
     }
 
@@ -256,7 +254,6 @@ abstract class Driver extends Query
         } else {
             $result = $this->query($sql, $values);
         }
-
         return $result;
     }
 
@@ -279,7 +276,6 @@ abstract class Driver extends Query
     public function fieldExists($table_name, $column_name)
     {
         $result = $this->customQuery("SHOW COLUMNS FROM `$table_name` LIKE '$column_name'");
-
         return empty($result) ? false : true;
     }
 
@@ -299,7 +295,6 @@ abstract class Driver extends Query
         foreach ($this->select($table_name, $condition, $sort) as $item) {
             $result[] = (object) $item;
         }
-
         return $result;
     }
 
@@ -315,7 +310,6 @@ abstract class Driver extends Query
     public function first($table_name, $condition)
     {
         $result = $this->select($table_name, $condition, array(), 1);
-
         return count($result) == 1 ? (object) $result[0] : false;
     }
 
@@ -491,7 +485,6 @@ abstract class Driver extends Query
     public function tableExists($table_name)
     {
         $result = $this->doCustomQuery("SHOW TABLES LIKE '$table_name'");
-
         return empty($result) ? false : true;
     }
 

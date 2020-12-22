@@ -11,7 +11,7 @@
 namespace Kotchasan;
 
 /**
- * String functions.
+ * String functions
  *
  * @author Goragod Wiriya <admin@goragod.com>
  *
@@ -21,7 +21,7 @@ class Text
 {
     /**
      * ฟังก์ชั่น ตัดสตริงค์ตามความยาวที่กำหนด
-     * หากข้อความที่นำมาตัดยาวกว่าที่กำหนด จะตัดข้อความที่เกินออก และเติม .. ข้างท้าย.
+     * หากข้อความที่นำมาตัดยาวกว่าที่กำหนด จะตัดข้อความที่เกินออก และเติม .. ข้างท้าย
      *
      * @assert ('สวัสดี ประเทศไทย', 8) [==] 'สวัสดี..'
      * @assert ('123456789', 8) [==] '123456..'
@@ -43,7 +43,7 @@ class Text
 
     /**
      * ฟังก์ชั่น แปลงขนาดของไฟล์จาก byte เป็น kb mb
-     * คืนค่าขนาดของไฟล์เป็น KB MB.
+     * คืนค่าขนาดของไฟล์เป็น KB MB
      *
      * @assert (256) [==] '256 Bytes'
      * @assert (1024) [==] '1 KB'
@@ -113,7 +113,7 @@ class Text
     }
 
     /**
-     * แปลง & " ' < > \ { } เป็น HTML entities ใช้แทน htmlspecialchars() ของ PHP.
+     * แปลง & " ' < > \ { } $ เป็น HTML entities ใช้แทน htmlspecialchars() ของ PHP
      *
      * @param string $text
      * @param bool $double_encode true (default) แปลง รหัส HTML เช่น &amp; เป็น &amp;amp;, false ไม่แปลง
@@ -122,7 +122,7 @@ class Text
      */
     public static function htmlspecialchars($text, $double_encode = true)
     {
-        $str = preg_replace(array('/&/', '/"/', "/'/", '/</', '/>/', '/\\\/', '/\{/', '/\}/'), array('&amp;', '&quot;', '&#039;', '&lt;', '&gt;', '&#92;', '&#x007B;', '&#x007D;'), $text);
+        $str = preg_replace(array('/&/', '/"/', "/'/", '/</', '/>/', '/\\\/', '/\{/', '/\}/', '/\$/'), array('&amp;', '&quot;', '&#039;', '&lt;', '&gt;', '&#92;', '&#x007B;', '&#x007D;', '&#36;'), $text);
         if (!$double_encode) {
             $str = preg_replace('/&(amp;([#a-z0-9]+));/i', '&\\2;', $str);
         }
@@ -132,7 +132,7 @@ class Text
 
     /**
      * ฟังก์ชั่น ลบช่องว่าง และ ตัวอักษรขึ้นบรรทัดใหม่ ที่ติดกันเกินกว่า 1 ตัว
-     * คืนค่าข้อความที่ไม่มีตัวอักษรขึ้นบรรทัดใหม่.
+     * คืนค่าข้อความที่ไม่มีตัวอักษรขึ้นบรรทัดใหม่
      *
      * @assert (" \tทดสอบ\r\nภาษาไทย") [==] 'ทดสอบ ภาษาไทย'
      *
@@ -147,7 +147,7 @@ class Text
     }
 
     /**
-     * รับค่าสำหรับ password อักขระทุกตัวไม่มีช่องว่าง.
+     * รับค่าสำหรับ password อักขระทุกตัวไม่มีช่องว่าง
      *
      * @assert (" 0\n12   34\r\r6\t5ทดสอบ@#$&{}!?+_-=") [==] '0123465ทดสอบ@#$&{}!?+_-='
      *
@@ -176,7 +176,7 @@ class Text
     }
 
     /**
-     * ฟังก์ชั่นคืนค่าข้อความซ้ำๆตามจำนวนที่กำหนด.
+     * ฟังก์ชั่นคืนค่าข้อความซ้ำๆตามจำนวนที่กำหนด
      *
      * @assert ('0', 10) [==] '0000000000'
      *
@@ -196,7 +196,7 @@ class Text
     }
 
     /**
-     * แทนที่ข้อความด้วยข้อมูลจากแอเรย์ รองรับข้อมูลรูปแบบแอเรย์ย่อยๆ.
+     * แทนที่ข้อความด้วยข้อมูลจากแอเรย์ รองรับข้อมูลรูปแบบแอเรย์ย่อยๆ
      *
      * @assert ("SELECT * FROM table WHERE id=:id AND lang IN (:lang, '')", array(':id' => 1, array(':lang' => 'th'))) [==] "SELECT * FROM table WHERE id=1 AND lang IN (th, '')"
      *
@@ -236,7 +236,7 @@ class Text
      * แปลง tag และ ลบช่องว่างไม่เกิน 1 ช่อง ไม่ขึ้นบรรทัดใหม่
      * เช่นหัวข้อของบทความ
      *
-     * @assert (' ทด\/สอบ'."\r\n\t".'<?php echo \'555\'?> ') [==] 'ทด&#92;/สอบ &lt;?php echo &#039;555&#039;?&gt;'
+     * @assert (' ทด\/สอบ$'."\r\n\t".'<?php echo \'555\'?> ') [==] 'ทด&#92;/สอบ&#36; &lt;?php echo &#039;555&#039;?&gt;'
      * @assert ('&nbsp;') [==] '&amp;nbsp;'
      * @assert ('&nbsp;', false) [==] '&nbsp;'
      *
@@ -251,7 +251,9 @@ class Text
     }
 
     /**
-     * แปลง htmlspecialchars กลับเป็นอักขระปกติ.
+     * แปลง htmlspecialchars กลับเป็นอักขระปกติ
+     *
+     * @assert (\Kotchasan\Text::htmlspecialchars('&"\'<>\\{}$')) [==] '&"\'<>\\{}$'
      *
      * @param string $text
      *
@@ -259,13 +261,13 @@ class Text
      */
     public static function unhtmlspecialchars($text)
     {
-        return str_replace(array('&amp;', '&quot;', '&#039;', '&lt;', '&gt;', '&#92;', '&#x007B;', '&#x007D;'), array('&', '"', "'", '<', '>', '\\', '{', '}'), $text);
+        return str_replace(array('&amp;', '&quot;', '&#039;', '&lt;', '&gt;', '&#92;', '&#x007B;', '&#x007D;', '&#36;'), array('&', '"', "'", '<', '>', '\\', '{', '}', '$'), $text);
     }
 
     /**
      * แปลง tag ไม่แปลง &amp;
      * และลบช่องว่างหัวท้าย
-     * สำหรับ URL หรือ email.
+     * สำหรับ URL หรือ email
      *
      * @assert (" http://www.kotchasan.com?a=1&b=2&amp;c=3 ") [==] 'http://www.kotchasan.com?a=1&amp;b=2&amp;c=3'
      * @assert ("javascript:alert('xxx')") [==] 'alertxxx'

@@ -63,11 +63,9 @@ class Login extends \Kotchasan\KBase
         $field_name = reset(self::$cfg->login_fields);
         if ($params['username'] !== self::$cfg->get($field_name)) {
             self::$login_input = $field_name;
-
             return Language::get('not a registered user');
         } elseif ($params['password'] !== self::$cfg->get('password')) {
             self::$login_input = 'password';
-
             return Language::get('password incorrect');
         } else {
             return array(
@@ -77,7 +75,6 @@ class Login extends \Kotchasan\KBase
                 'status' => 1,
             );
         }
-
         return 'not a registered user';
     }
 
